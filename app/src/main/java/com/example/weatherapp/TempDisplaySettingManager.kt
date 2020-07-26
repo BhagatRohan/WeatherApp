@@ -3,7 +3,7 @@ package com.example.weatherapp
 import android.content.Context
 
 enum class TempDisplaySetting{
-    Fahrenheit, Celcius
+    Fahrenheit, Celsius
 }
 
 class TempDisplaySettingManager(context: Context) {

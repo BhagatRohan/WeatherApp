@@ -8,14 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class CurrentForecastFragment : Fragment() {
+class WeeklyForecastFragment : Fragment() {
     private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
     private val forecastRepository: ForecastRepository = ForecastRepository()
 
@@ -23,7 +22,7 @@ class CurrentForecastFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  inflater.inflate(R.layout.fragment_current_forecast, container, false)
+        val view =  inflater.inflate(R.layout.fragment_weekly_forecast, container, false)
 
         tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
 
@@ -47,7 +46,7 @@ class CurrentForecastFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-      //  val zipcode = requireArguments().getString(KEY_ZIPCODE, "") ?: ""
+       // val zipcode = requireArguments().getString(CurrentForecastFragment.KEY_ZIPCODE, "") ?: ""
 
         forecastRepository.loadForecast("")
 
@@ -66,8 +65,8 @@ class CurrentForecastFragment : Fragment() {
     companion object {
         const val KEY_ZIPCODE = "key_zipcode"
 
-        fun newInstance(zipcode: String) : CurrentForecastFragment{
-            val currentForecastFragment = CurrentForecastFragment()
+        fun newInstance(zipcode: String) : WeeklyForecastFragment{
+            val currentForecastFragment = WeeklyForecastFragment()
 
             val args = Bundle()
             args.putString(KEY_ZIPCODE, zipcode)

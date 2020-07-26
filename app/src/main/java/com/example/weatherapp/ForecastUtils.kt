@@ -8,7 +8,7 @@ fun formatTemperature(temperature: Float, tempDisplaySetting: TempDisplaySetting
 
    return when(tempDisplaySetting){
        TempDisplaySetting.Fahrenheit -> String.format("%.2f F°", temperature)
-       TempDisplaySetting.Celcius ->{
+       TempDisplaySetting.Celsius ->{
            val temp = (temperature - 32f) * (5f/9f)
            String.format("%.2f C°", temp)
        }
@@ -23,7 +23,7 @@ fun showTempDisplaySettingDialog(context: Context, tempDisplaySettingManager: Te
             tempDisplaySettingManager.updateSetting(TempDisplaySetting.Fahrenheit)
         }
         .setNeutralButton("C°") { _, _ ->
-            tempDisplaySettingManager.updateSetting(TempDisplaySetting.Celcius)
+            tempDisplaySettingManager.updateSetting(TempDisplaySetting.Celsius)
         }
         .setOnDismissListener {
             Toast.makeText(context, "Settings will take change on app restart", Toast.LENGTH_SHORT)

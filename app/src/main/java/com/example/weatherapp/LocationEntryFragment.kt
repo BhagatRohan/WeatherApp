@@ -1,6 +1,5 @@
 package com.example.weatherapp
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 
 class LocationEntryFragment : Fragment() {
-
-    private lateinit var appNavigator: AppNavigator
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        if (context is AppNavigator)
-            appNavigator = context
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +26,7 @@ class LocationEntryFragment : Fragment() {
             if (zipcodeEditText.text.toString().length != 6) {
                 Toast.makeText(requireContext(), "Mismatch Zipcode", Toast.LENGTH_SHORT).show()
             } else {
-                if (this::appNavigator.isInitialized){
-                    appNavigator.navigateToCurrentForecast(zipcodeEditText.text.toString())
-                }
+                findNavController().navigateUp()
             }
         }
 
