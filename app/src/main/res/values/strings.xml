@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="enter_your_zipcode">Enter your Zipcode</string>
+    <string name="enter_zipcode">Enter Zipcode</string>
+    <string name="submit_zipcode">Submit Zipcode</string>
+    <string name="forecast_details">Forecast Details</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
