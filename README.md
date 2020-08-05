@@ -4,7 +4,7 @@ WeatherApplication
 Description: 
 A small Weather Application which displays the current weather and the upcoming week's weather on the basis of zip-code entered by the user.
 Currently it works only for zip-code based in India.
-Data are fetched from openweathermap apis (https://openweathermap.org/)
+Data is fetched from openweathermap api (https://openweathermap.org/)
 
 Language in which app is written is : Kotlin
 
