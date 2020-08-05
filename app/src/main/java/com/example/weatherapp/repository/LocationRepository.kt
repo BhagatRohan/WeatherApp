@@ -1,9 +1,8 @@
-package com.example.weatherapp
+package com.example.weatherapp.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import java.security.Key
 
 sealed class Location {
     data class Zipcode(val zipcode: String) : Location()
@@ -19,7 +18,7 @@ class LocationRepository(context: Context) {
     val savedLocation: LiveData<Location> = _savedLocation
 
     init {
-        preferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+        preferences.registerOnSharedPreferenceChangeListener { _, key ->
             if (key != KEY_ZIPCODE) return@registerOnSharedPreferenceChangeListener
 
             broadcastSavedZipcode()
@@ -29,7 +28,8 @@ class LocationRepository(context: Context) {
 
     fun saveLocation(location: Location) {
         when (location) {
-            is Location.Zipcode -> preferences.edit().putString(KEY_ZIPCODE, location.zipcode)
+            is Location.Zipcode -> preferences.edit().putString(
+                KEY_ZIPCODE, location.zipcode)
                 .apply()
         }
     }
@@ -37,7 +37,8 @@ class LocationRepository(context: Context) {
     private fun broadcastSavedZipcode() {
         val zipcode = preferences.getString(KEY_ZIPCODE, "")
         if (zipcode != null && zipcode.isNotBlank()) {
-            _savedLocation.value = Location.Zipcode(zipcode)
+            _savedLocation.value =
+                Location.Zipcode(zipcode)
         }
     }
 

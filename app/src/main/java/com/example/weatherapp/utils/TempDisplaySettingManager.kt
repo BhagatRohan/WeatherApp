@@ -1,4 +1,4 @@
-package com.example.weatherapp
+package com.example.weatherapp.utils
 
 import android.content.Context
 
@@ -13,7 +13,7 @@ class TempDisplaySettingManager(context: Context) {
         preferences.edit().putString("key_temp_display", setting.name).apply()
     }
 
-    fun getDisplaySetting(): TempDisplaySetting{
+    fun getDisplaySetting(): TempDisplaySetting {
        val settingsValue = preferences.getString("key_temp_display", TempDisplaySetting.Fahrenheit.name) ?: TempDisplaySetting.Fahrenheit.name
         return TempDisplaySetting.valueOf(settingsValue)
     }

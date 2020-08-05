@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="75dp"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
 
     <TextView
@@ -12,32 +13,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="70.0"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/dateText"
         app:layout_constraintStart_toEndOf="@+id/forecastIcon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="70.0" />
 
     <TextView
         android:id="@+id/descriptionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Partly Cloudy"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="@+id/temperatureText"
         app:layout_constraintStart_toEndOf="@+id/temperatureText"
-        app:layout_constraintTop_toTopOf="@+id/temperatureText" />
+        app:layout_constraintTop_toTopOf="@+id/temperatureText"
+        tools:text="Partly Cloudy" />
 
     <TextView
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:text="Date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/temperatureText"
-        app:layout_constraintTop_toBottomOf="@+id/temperatureText" />
+        app:layout_constraintTop_toBottomOf="@+id/temperatureText"
+        tools:text="Date" />
 
     <ImageView
         android:id="@+id/forecastIcon"

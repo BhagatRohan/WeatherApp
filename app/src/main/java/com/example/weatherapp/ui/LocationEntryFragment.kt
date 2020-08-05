@@ -1,4 +1,4 @@
-package com.example.weatherapp
+package com.example.weatherapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.weatherapp.repository.Location
+import com.example.weatherapp.repository.LocationRepository
+import com.example.weatherapp.R
 
 
 class LocationEntryFragment : Fragment() {
@@ -20,7 +23,8 @@ class LocationEntryFragment : Fragment() {
     ): View? {
         val rootview = inflater.inflate(R.layout.fragment_location_entry, container, false)
 
-        locationRepository = LocationRepository(requireContext())
+        locationRepository =
+            LocationRepository(requireContext())
 
         val submitZipcodeButton: Button = rootview.findViewById(R.id.submitZipcodeButton)
         val zipcodeEditText: EditText = rootview.findViewById(R.id.zipcodeEditText)
@@ -29,7 +33,11 @@ class LocationEntryFragment : Fragment() {
             if (zipcodeEditText.text.toString().length != 6) {
                 Toast.makeText(requireContext(), "Mismatch Zipcode", Toast.LENGTH_SHORT).show()
             } else {
-                locationRepository.saveLocation(Location.Zipcode(zipcodeEditText.text.toString()))
+                locationRepository.saveLocation(
+                    Location.Zipcode(
+                        zipcodeEditText.text.toString()
+                    )
+                )
                 findNavController().navigateUp()
             }
         }

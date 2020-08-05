@@ -1,5 +1,7 @@
 package com.example.weatherapp
 
+import com.example.weatherapp.models.CurrentWeather
+import com.example.weatherapp.models.WeeklyForecast
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

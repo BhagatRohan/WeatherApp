@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/locationEntryFragment"
-        android:name="com.example.weatherapp.LocationEntryFragment"
+        android:name="com.example.weatherapp.ui.LocationEntryFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_location_entry" />
     <fragment
         android:id="@+id/currentForecastFragment"
-        android:name="com.example.weatherapp.CurrentForecastFragment"
+        android:name="com.example.weatherapp.ui.CurrentForecastFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_current_forecast" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/forecastDetailsFragment"
-        android:name="com.example.weatherapp.ForecastDetailsFragment"
+        android:name="com.example.weatherapp.ui.ForecastDetailsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_forecast_details" >
         <argument
@@ -33,17 +33,23 @@
         <argument
             android:name="desc"
             app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="long" />
+        <argument
+            android:name="icon"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/weeklyForecastFragment"
-        android:name="com.example.weatherapp.WeeklyForecastFragment"
+        android:name="com.example.weatherapp.ui.WeeklyForecastFragment"
         android:label="WeeklyForecastFragment"
         tools:layout="@layout/fragment_weekly_forecast">
         <action
-            android:id="@+id/action_weeklyForecastFragment_to_forecastDetailsFragment"
-            app:destination="@id/forecastDetailsFragment" />
-        <action
             android:id="@+id/action_weeklyForecastFragment_to_locationEntryFragment"
             app:destination="@id/locationEntryFragment" />
+        <action
+            android:id="@+id/action_weeklyForecastFragment_to_forecastDetailsFragment"
+            app:destination="@id/forecastDetailsFragment" />
     </fragment>
 </navigation>
