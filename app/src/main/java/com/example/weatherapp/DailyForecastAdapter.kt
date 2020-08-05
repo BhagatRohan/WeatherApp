@@ -3,18 +3,31 @@ package com.example.weatherapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
+import java.text.SimpleDateFormat
+import java.util.*
+
+private val DATE_FORMAT = SimpleDateFormat("MM-dd-yyyy")
 
 class DailyForecastViewHolder(view: View, private val tempDisplaySettingManager: TempDisplaySettingManager) : RecyclerView.ViewHolder(view) {
     private val temperatureText: TextView = view.findViewById(R.id.temperatureText)
     private val descriptionText: TextView = view.findViewById(R.id.descriptionText)
+    private val dateText: TextView = view.findViewById(R.id.dateText)
+    private val forecastIcon: ImageView = view.findViewById(R.id.forecastIcon)
+
 
     fun bind(dailyForecast: DailyForecast) {
-        temperatureText.text = formatTemperature(dailyForecast.temperature, tempDisplaySettingManager.getDisplaySetting())
-        descriptionText.text = dailyForecast.description
+        temperatureText.text = formatTemperature(dailyForecast.temp.max, tempDisplaySettingManager.getDisplaySetting())
+        descriptionText.text = dailyForecast.weather[0].description
+        dateText.text = DATE_FORMAT.format(Date(dailyForecast.date * 1000))
+
+        val iconId = dailyForecast.weather[0].icon
+        forecastIcon.load("http://openweathermap.org/img/wn/${iconId}@2x.png")
     }
 
 }

@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class WeeklyForecastFragment : Fragment() {
     private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
     private val forecastRepository: ForecastRepository = ForecastRepository()
+    private lateinit var locationRepository: LocationRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +35,8 @@ class WeeklyForecastFragment : Fragment() {
         }
         forecastList.adapter = dailyForecastAdapter
 
-        forecastRepository.weeklyForecast.observe(viewLifecycleOwner, Observer { forecastItems ->
-            dailyForecastAdapter.submitList(forecastItems)
+        forecastRepository.weeklyForecast.observe(viewLifecycleOwner, Observer { weeklyForecast ->
+            dailyForecastAdapter.submitList(weeklyForecast.daily)
         })
 
         val locationEntryButton = view.findViewById<FloatingActionButton>(R.id.locationEntryButton)
@@ -46,18 +47,24 @@ class WeeklyForecastFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-       // val zipcode = requireArguments().getString(CurrentForecastFragment.KEY_ZIPCODE, "") ?: ""
+        locationRepository = LocationRepository(requireContext())
 
-        forecastRepository.loadForecast("")
+        locationRepository.savedLocation.observe(viewLifecycleOwner, Observer { savedLocation ->
+            when(savedLocation){
+                is Location.Zipcode -> forecastRepository.loadWeeklyForecast(savedLocation.zipcode)
+            }
+        })
 
         return view
     }
 
     private fun showForecastDetails(dailyForecast: DailyForecast) {
+        val temp = dailyForecast.temp.max
+        val description = dailyForecast.weather[0].description
         val action =
             CurrentForecastFragmentDirections.actionCurrentForecastFragmentToForecastDetailsFragment(
-                dailyForecast.temperature,
-                dailyForecast.description
+                temp,
+                description
             )
         findNavController().navigate(action)
     }

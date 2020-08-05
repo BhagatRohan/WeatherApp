@@ -12,12 +12,15 @@ import androidx.navigation.fragment.findNavController
 
 
 class LocationEntryFragment : Fragment() {
+    private lateinit var locationRepository: LocationRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val rootview = inflater.inflate(R.layout.fragment_location_entry, container, false)
+
+        locationRepository = LocationRepository(requireContext())
 
         val submitZipcodeButton: Button = rootview.findViewById(R.id.submitZipcodeButton)
         val zipcodeEditText: EditText = rootview.findViewById(R.id.zipcodeEditText)
@@ -26,6 +29,7 @@ class LocationEntryFragment : Fragment() {
             if (zipcodeEditText.text.toString().length != 6) {
                 Toast.makeText(requireContext(), "Mismatch Zipcode", Toast.LENGTH_SHORT).show()
             } else {
+                locationRepository.saveLocation(Location.Zipcode(zipcodeEditText.text.toString()))
                 findNavController().navigateUp()
             }
         }
