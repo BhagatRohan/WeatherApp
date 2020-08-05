@@ -32,16 +32,11 @@ class CurrentForecastFragment : Fragment() {
     )
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCurrentForecastBinding.inflate(inflater, container, false)
 
         viewModelFactory = CurrentForecastViewModelFactory(forecastRepository)
-        tempDisplaySettingManager =
-            TempDisplaySettingManager(requireContext())
+        tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
         locationRepository = LocationRepository(requireContext())
 
         return binding.root
@@ -51,8 +46,7 @@ class CurrentForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.locationEntryButton.setOnClickListener {
-            val action =
-                CurrentForecastFragmentDirections.actionCurrentForecastFragmentToLocationEntryFragment()
+            val action = CurrentForecastFragmentDirections.actionCurrentForecastFragmentToLocationEntryFragment()
             findNavController().navigate(action)
         }
 
@@ -63,11 +57,7 @@ class CurrentForecastFragment : Fragment() {
             binding.tempText.visibility = View.VISIBLE
 
             binding.locationName.text = weather.name
-            binding.tempText.text =
-                formatTemperature(
-                    weather.forecast.temp,
-                    tempDisplaySettingManager.getDisplaySetting()
-                )
+            binding.tempText.text = formatTemperature(weather.forecast.temp, tempDisplaySettingManager.getDisplaySetting())
         })
 
         locationRepository.savedLocation.observe(viewLifecycleOwner, Observer { savedLocation ->
@@ -78,7 +68,11 @@ class CurrentForecastFragment : Fragment() {
                 }
             }
         })
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

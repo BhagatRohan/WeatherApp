@@ -31,20 +31,12 @@ class ForecastDetailsFragment : Fragment() {
 
     private val args: ForecastDetailsFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentForecastDetailsBinding.inflate(inflater, container, false)
 
-        viewModelFactory =
-            ForecastDetailsViewModelFactory(
-                args
-            )
+        viewModelFactory = ForecastDetailsViewModelFactory(args)
 
-        tempDisplaySettingManager =
-            TempDisplaySettingManager(requireContext())
+        tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
 
         return binding.root
     }
@@ -53,17 +45,11 @@ class ForecastDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val viewStateObserver = Observer<ForecastDetailViewState> { viewState ->
 
-            binding.temperatureText.text =
-                formatTemperature(
-                    viewState.temp,
-                    tempDisplaySettingManager.getDisplaySetting()
-                )
+            binding.temperatureText.text = formatTemperature(viewState.temp, tempDisplaySettingManager.getDisplaySetting())
             binding.descriptionText.text = viewState.description
             binding.dateText.text = viewState.date
             binding.forecastIcon.load(viewState.icons)
-
         }
-
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver)
     }
 

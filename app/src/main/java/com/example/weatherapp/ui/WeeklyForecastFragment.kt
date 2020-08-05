@@ -22,8 +22,7 @@ import com.example.weatherapp.viewModel.WeeklyForecastViewModelFactory
 
 class WeeklyForecastFragment : Fragment() {
     private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
-    private val forecastRepository: ForecastRepository =
-        ForecastRepository()
+    private val forecastRepository: ForecastRepository = ForecastRepository()
     private lateinit var locationRepository: LocationRepository
 
     private var _binding: FragmentWeeklyForecastBinding? = null
@@ -34,14 +33,10 @@ class WeeklyForecastFragment : Fragment() {
         factoryProducer = { viewModelFactory }
     )
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentWeeklyForecastBinding.inflate(inflater, container, false)
 
-        tempDisplaySettingManager =
-            TempDisplaySettingManager(requireContext())
+        tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
         locationRepository = LocationRepository(requireContext())
         viewModelFactory = WeeklyForecastViewModelFactory(forecastRepository)
 
@@ -52,18 +47,14 @@ class WeeklyForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.locationEntryButton.setOnClickListener {
-            val action =
-                CurrentForecastFragmentDirections.actionCurrentForecastFragmentToLocationEntryFragment()
+            val action = CurrentForecastFragmentDirections.actionCurrentForecastFragmentToLocationEntryFragment()
             findNavController().navigate(action)
         }
 
         binding.forecastList.layoutManager = LinearLayoutManager(requireContext())
-        val dailyForecastAdapter =
-            DailyForecastAdapter(
-                tempDisplaySettingManager
-            ) {
+        val dailyForecastAdapter = DailyForecastAdapter(tempDisplaySettingManager) {
                 showForecastDetails(it)
-            }
+        }
 
         binding.forecastList.adapter = dailyForecastAdapter
 
@@ -81,7 +72,6 @@ class WeeklyForecastFragment : Fragment() {
                 }
             }
         })
-
     }
 
     private fun showForecastDetails(dailyForecast: DailyForecast) {
@@ -90,14 +80,18 @@ class WeeklyForecastFragment : Fragment() {
         val date = dailyForecast.date
         val icon = dailyForecast.weather[0].icon
 
-        val action =
-            WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToForecastDetailsFragment(
+        val action = WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToForecastDetailsFragment(
                 temp,
                 description,
                 date,
                 icon
             )
         findNavController().navigate(action)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

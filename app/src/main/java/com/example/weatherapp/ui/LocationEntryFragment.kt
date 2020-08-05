@@ -12,38 +12,38 @@ import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.repository.Location
 import com.example.weatherapp.repository.LocationRepository
 import com.example.weatherapp.R
+import com.example.weatherapp.databinding.FragmentLocationEntryBinding
 
 
 class LocationEntryFragment : Fragment() {
     private lateinit var locationRepository: LocationRepository
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val rootview = inflater.inflate(R.layout.fragment_location_entry, container, false)
+    private var _binding: FragmentLocationEntryBinding? = null
+    private val binding get() = _binding!!
 
-        locationRepository =
-            LocationRepository(requireContext())
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentLocationEntryBinding.inflate(inflater, container, false)
 
-        val submitZipcodeButton: Button = rootview.findViewById(R.id.submitZipcodeButton)
-        val zipcodeEditText: EditText = rootview.findViewById(R.id.zipcodeEditText)
+        locationRepository = LocationRepository(requireContext())
 
-        submitZipcodeButton.setOnClickListener {
-            if (zipcodeEditText.text.toString().length != 6) {
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.submitZipcodeButton.setOnClickListener {
+            if (binding.zipcodeEditText.text.toString().length != 6) {
                 Toast.makeText(requireContext(), "Mismatch Zipcode", Toast.LENGTH_SHORT).show()
             } else {
-                locationRepository.saveLocation(
-                    Location.Zipcode(
-                        zipcodeEditText.text.toString()
-                    )
-                )
+                locationRepository.saveLocation(Location.Zipcode(binding.zipcodeEditText.text.toString()))
                 findNavController().navigateUp()
             }
         }
-
-        return rootview
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

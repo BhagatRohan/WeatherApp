@@ -21,8 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tempDisplaySettingManager =
-            TempDisplaySettingManager(this)
+        tempDisplaySettingManager = TempDisplaySettingManager(this)
 
         val navController = findNavController(R.id.nav_host_fragment)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -41,15 +40,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.tempDisplaySetting -> {
-                showTempDisplaySettingDialog(
-                    this,
-                    tempDisplaySettingManager
-                )
+                showTempDisplaySettingDialog(this, tempDisplaySettingManager)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
 }
